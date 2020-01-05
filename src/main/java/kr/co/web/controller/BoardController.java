@@ -1,5 +1,7 @@
 package kr.co.web.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -48,6 +50,10 @@ public class BoardController {
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
 	public void listAll(Model model) throws Exception {
 		logger.info("show all list");
+		
+		List<BoardVO> boards = service.listAll();
+		
+		model.addAttribute("list", boards);
 	}
 }
 
