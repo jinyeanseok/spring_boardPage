@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kr.co.web.domain.BoardVO;
 
 @Repository
+
 public class BoardDAOImpl implements BoardDAO{
 	/*SQL문을 실행하는 메소드를 가지고 있는 인터페이스 SqlSession을 구현한 SqlSessionTemplate을 찾아서
 	   객체를 자동으로 생성*/

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.web.domain.BoardVO;
@@ -55,6 +56,40 @@ public class BoardController {
 		
 		model.addAttribute("list", boards);
 	}
+	
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public void read(@RequestParam("bno") Integer bno, Model model) throws Exception {
+		
+		logger.info("read get...");
+		
+		BoardVO board = service.read(bno);
+		
+		model.addAttribute(board);
+	}
+
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public String remove(@RequestParam("bno") Integer bno, RedirectAttributes rttr) throws Exception{
+		logger.info("remove");
+		service.remove(bno);
+		rttr.addFlashAttribute("result","removeOK");
+		return "redirect:/board/listAll";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void updateGET(@RequestParam("bno") Integer bno, Model model) throws Exception {
+		logger.info("update...get");
+		BoardVO board = service.read(bno);
+		model.addAttribute(board);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updatePOST(BoardVO board, RedirectAttributes rttr) throws Exception{
+		logger.info("update POST");
+		service.modify(board);
+		rttr.addFlashAttribute("result","saveOK");
+		return "redirect:/board/read?bno="+board.getBno();
+	}
+    
 }
 
 
