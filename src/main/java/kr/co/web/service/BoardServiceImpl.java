@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.co.web.domain.BoardVO;
+import kr.co.web.domain.Criteria;
 import kr.co.web.persistence.BoardDAO;
 
 //서비스 객체임을 알림
@@ -38,6 +39,16 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public List<BoardVO> listAll() throws Exception {
 		return boardDAO.listAll();
+	}
+	
+	@Override
+	public List<BoardVO> listPage(Criteria cri) throws Exception {
+		return boardDAO.listPage(cri);
+	}
+	
+	@Override
+	public int getTotalCount(Criteria cri) throws Exception {
+		return boardDAO.getTotalCount(cri);
 	}
 
 }

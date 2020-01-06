@@ -41,4 +41,20 @@
 	<select id="getMaxBno" resultType= "Integer">
 		select max(bno) from board
 	</select>
+	
+	<!-- 일정 페이지 씩 조회 -->
+	<select id="listPage" resultType="kr.co.web.domain.BoardVO">
+		select *
+		from board
+		where bno > 0
+		order by bno desc, regdate desc
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="gettotalcount" resultType="int">
+		select count(bno)
+		from board
+		where bno > 0;
+	</select>
+	
 </mapper>

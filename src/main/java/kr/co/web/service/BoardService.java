@@ -3,6 +3,7 @@ package kr.co.web.service;
 import java.util.List;
 
 import kr.co.web.domain.BoardVO;
+import kr.co.web.domain.Criteria;
 
 public interface BoardService {
 	public void regist(BoardVO board) throws Exception;
@@ -14,4 +15,8 @@ public interface BoardService {
 	public void remove(Integer bno) throws Exception;
 	
 	public List<BoardVO> listAll() throws Exception;
+	
+	List<BoardVO> listPage(Criteria cri) throws Exception;
+	
+	int getTotalCount(Criteria cri) throws Exception;
 } 

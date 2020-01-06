@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.web.domain.BoardVO;
+import kr.co.web.domain.Criteria;
 import kr.co.web.service.BoardService;
 
 @Controller
@@ -90,6 +91,11 @@ public class BoardController {
 		return "redirect:/board/read?bno="+board.getBno();
 	}
     
+	// 페이징 기능으로 목록을 보여주는 메서드
+	@RequestMapping(value = "listPage", method = RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception {
+		
+	}
 }
 
 
