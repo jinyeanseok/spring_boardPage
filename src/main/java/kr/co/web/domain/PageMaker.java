@@ -1,5 +1,8 @@
 package kr.co.web.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageMaker {
 	private int displayPageCnt = 10; // 화면에 보여질 페이지 번호 수
 	private int totalDataCount; // 실제 게시물 수
@@ -42,5 +45,71 @@ public class PageMaker {
 		
 		this.prev = (startPage != 1); // startPage 1이 아니면 false
 		this.next = (endPage * perPageNum < totalDataCount); //아직 더 보여질 페이지가 있으면 true 
+	}
+	
+	public String makeQuery(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", this.cri.getPerPageNum())
+				.build()
+				.encode();
+				
+		return uriComponents.toString();
+	}
+
+	public int getDisplayPageCnt() {
+		return displayPageCnt;
+	}
+
+	public void setDisplayPageCnt(int displayPageCnt) {
+		this.displayPageCnt = displayPageCnt;
+	}
+
+	public int getTotalDataCount() {
+		return totalDataCount;
+	}
+
+	public void setTotalDataCount(int totalDataCount) {
+		this.totalDataCount = totalDataCount;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public boolean isPrev() {
+		return prev;
+	}
+
+	public void setPrev(boolean prev) {
+		this.prev = prev;
+	}
+
+	public boolean isNext() {
+		return next;
+	}
+
+	public void setNext(boolean next) {
+		this.next = next;
+	}
+
+	public Criteria getCri() {
+		return cri;
+	}
+
+	public void setCri(Criteria cri) {
+		this.cri = cri;
 	}
 }

@@ -1,5 +1,7 @@
 package kr.co.web.domain;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class Criteria {
 	private int page;
 	private int perPageNum;
@@ -41,5 +43,12 @@ public class Criteria {
 	@Override
 	public String toString() {
 		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+	}
+	
+	public String makeQuery() {
+		return UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", this.perPageNum)
+				.build().encode().toString();
 	}
 }

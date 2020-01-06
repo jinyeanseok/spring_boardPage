@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.web.domain.BoardVO;
 import kr.co.web.domain.Criteria;
+import kr.co.web.domain.PageMaker;
 import kr.co.web.service.BoardService;
 
 @Controller
@@ -92,9 +93,21 @@ public class BoardController {
 	}
     
 	// 페이징 기능으로 목록을 보여주는 메서드
-	@RequestMapping(value = "listPage", method = RequestMethod.GET)
-	public void listPage(Criteria cri, Model model) throws Exception {
-		
+	@RequestMapping(value = "/listPage", method = RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception{
+		logger.info("listPage");
+        //현재 페이지에 해당하는 게시물을 조회해 옴 
+		List<BoardVO> boards = service.listPage(cri);
+        //모델에 추가
+		model.addAttribute("list",boards);
+        //PageMaker 객체 생성
+		PageMaker pageMaker = new PageMaker(cri);
+        //전체 게시물 수를 구함
+		int totalCount = service.getTotalCount(cri);
+        //pageMaker로 전달 -> pageMaker는 startPage, endPage, prev, next를 계산함
+		pageMaker.setTotalCount(totalCount);
+        //모델에 추가
+		model.addAttribute("pageMaker", pageMaker);
 	}
 }
 
